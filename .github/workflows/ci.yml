@@ -72,12 +72,17 @@ jobs:
       run: |
         poetry run black --check .
     
+    - name: Install test dependencies
+      run: |
+        poetry add --dev pytest pytest-asyncio pytest-cov httpx
+        poetry install
+
     - name: Run tests
       env:
         DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/test_evals
         REDIS_URL: redis://localhost:6379/0
       run: |
-        poetry run pytest tests/ -v --cov=./ --cov-report=xml
+        poetry run pytest tests/ -v --cov=./ --cov-report=xml --log-cli-level=INFO
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
