@@ -56,9 +56,17 @@ async def root():
     }
 
 # Import and include routers
-# from .routers import projects, datasets, runs, results
+from .routers import health
 
 # Include API routers
+app.include_router(health.router, prefix="/api/v1", tags=["health"])
+
+# Include other routers when ready
+# from .routers import projects, datasets, runs, results
+# app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
+# app.include_router(datasets.router, prefix="/api/v1/datasets", tags=["datasets"])
+# app.include_router(runs.router, prefix="/api/v1/runs", tags=["runs"])
+# app.include_router(results.router, prefix="/api/v1/results", tags=["results"])
 # app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
 # app.include_router(datasets.router, prefix="/api/v1/datasets", tags=["datasets"])
 # app.include_router(runs.router, prefix="/api/v1/runs", tags=["runs"])

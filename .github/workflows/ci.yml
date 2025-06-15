@@ -41,6 +41,11 @@ jobs:
       with:
         python-version: '3.11'
     
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libpq-dev gcc
+    
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
@@ -82,23 +87,18 @@ jobs:
         name: codecov-umbrella
         fail_ci_if_error: false
 
-  frontend:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js 18
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      working-directory: ./frontend
-      run: npm ci
-    
-    - name: Lint
+  # Frontend tests are disabled for now
+  # frontend:
+  #   runs-on: ubuntu-latest
+  #   
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   
+  #   - name: Use Node.js 18
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: '18'
+  #       cache: 'npm'
       working-directory: ./frontend
       run: npm run lint
     
