@@ -4,29 +4,48 @@
 
 ---
 
-## 2025-06-15 05:51:10 - Project Initialization
+## 2025-06-15 12:55:00 - API Implementation & CRUD Operations
 
-### Phase-0: Bootstrap (In Progress)
+### Phase-1: Core Backend (In Progress)
 
 #### ✅ Completed Tasks
-- [x] **P0-1 [I]**: Initialized Git repository
-  ```bash
-  git init
-  echo "# AI Evaluation Platform\n\nWeb-based evaluation suite for LLM applications." > README.md
-  echo ".env\n__pycache__/\n*.py[cod]\n*$py.class\n.DS_Store" > .gitignore
-  curl -L https://opensource.org/license/mit/ -o LICENSE
-  ```
+- [x] **P1-1 [I]**: Scaffolded GitHub Actions CI
+  - Set up automated testing with PostgreSQL and Redis services
+  - Configured Python 3.11 environment with Poetry
+  - Added linting and testing workflows
 
-- [x] **P0-2 [I]**: Created monorepo structure
-  ```bash
-  mkdir -p services/{api,worker} frontend infra/{docker,ci} docs scripts
-  ```
+- [x] **P1-2 [DB]**: Implemented SQLAlchemy ORM models
+  - Created models for Projects, Datasets, Runs, and Results
+  - Set up relationships and constraints
+  - Added timestamp mixins for created/updated tracking
+
+- [x] **P1-3 [B]**: Implemented Pydantic schemas
+  - Created base, create, update, and response schemas for all models
+  - Added validation and field configurations
+  - Implemented pagination and filtering support
+
+- [x] **P1-4 [B]**: Implemented CRUD operations
+  - Created base CRUD class with common operations
+  - Implemented specific CRUD classes for each model
+  - Added support for filtering, sorting, and pagination
+  - Implemented file handling for dataset uploads
+
+- [x] **P1-5 [B]**: Implemented API routers
+  - Created routers for projects, datasets, runs, and results
+  - Added authentication and authorization middleware
+  - Implemented request validation and error handling
+  - Added OpenAPI documentation
+
+- [x] **P1-6 [B]**: Implemented background task processing
+  - Set up Celery with Redis as broker
+  - Created tasks for dataset processing and evaluation
+  - Added progress tracking and status updates
 
 #### 🚧 Next Up
-- [ ] **P0-3 [I]**: Set up Poetry and core dependencies
-- [ ] **P0-4 [I]**: Configure Docker Compose
-- [ ] **P0-5 [DB]**: Initialize PostgreSQL
-- [ ] **P0-6 [I]**: Scaffold GitHub Actions CI
+- [ ] **P1-7 [B]**: Implement authentication and authorization
+- [ ] **P1-8 [B]**: Add API documentation and examples
+- [ ] **P1-9 [T]**: Write unit and integration tests
+- [ ] **P1-10 [I]**: Set up database migrations with Alembic
 
 ### Current Project Structure
 ```
@@ -35,29 +54,41 @@ Evals_App/
 │   └── workflows/
 │       └── ci.yml
 ├── services/
-│   ├── api/           # FastAPI application
-│   └── worker/        # Celery worker
-├── frontend/          # Next.js app
+│   ├── api/
+│   │   ├── app/
+│   │   │   ├── api/              # API endpoints
+│   │   │   ├── core/             # Core functionality
+│   │   │   ├── crud/             # Database operations
+│   │   │   ├── db/               # Database models
+│   │   │   ├── schemas/          # Pydantic models
+│   │   │   └── main.py           # FastAPI app
+│   │   └── tests/                # Test files
+│   └── worker/
+│       ├── app/
+│       │   ├── tasks.py          # Celery tasks
+│       │   └── worker.py         # Worker configuration
+│       └── tests/                # Test files
+├── frontend/                     # Next.js app (TBD)
 ├── infra/
-│   ├── ci/           # CI configurations
-│   └── docker/        # Dockerfiles & compose
-├── docs/              # Documentation
-├── scripts/           # Utility scripts
-├── .env.example       # Template for environment variables
-├── .gitignore
-├── LICENSE
+│   ├── ci/                      # CI configurations
+│   └── docker/                   # Dockerfiles & compose
+├── docs/                         # Documentation
+├── scripts/                      # Utility scripts
+├── .env.example                  # Environment template
+├── docker-compose.yml            # Local development
+├── pyproject.toml                # Python dependencies
 └── README.md
 ```
 
 ### Technical Decisions
-1. **Backend Framework**: FastAPI for async support and OpenAPI docs
-2. **Frontend**: Next.js 14 with TypeScript for type safety
-3. **Database**: PostgreSQL with SQLAlchemy ORM
-4. **Task Queue**: Celery with Redis as broker
-5. **Containerization**: Docker Compose for local development
+1. **API Design**: RESTful endpoints with consistent error handling
+2. **Data Validation**: Pydantic v2 with custom validators
+3. **Async Support**: Full async/await support for database operations
+4. **File Handling**: Secure file uploads with size and type validation
+5. **Background Processing**: Celery with Redis for async task processing
 
 ### Blockers
 - None currently
 
 ---
-*Last Updated: 2025-06-15 05:51:10 IST*
+*Last Updated: 2025-06-15 12:55:00 IST*
