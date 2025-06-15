@@ -99,13 +99,19 @@ jobs:
   #     with:
   #       node-version: '18'
   #       cache: 'npm'
-      working-directory: ./frontend
-      run: npm run lint
-    
-    - name: Build
-      working-directory: ./frontend
-      run: npm run build
-    
-    - name: Test
-      working-directory: ./frontend
-      run: npm test
+  #   
+  #   - name: Install dependencies
+  #     working-directory: ./frontend
+  #     run: npm ci
+  #   
+  #   - name: Lint
+  #     working-directory: ./frontend
+  #     run: npm run lint
+  #   
+  #   - name: Build
+  #     working-directory: ./frontend
+  #     run: npm run build
+  #   
+  #   - name: Test
+  #     working-directory: ./frontend
+  #     run: npm test
